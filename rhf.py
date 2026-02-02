@@ -14,7 +14,7 @@ if __name__ == "__main__":
                 mol.build()
                 
                 # Run RHF calculation
-                print("basis = %s r= %.2f" %(basis, r))
+                print("basis = %s r = %.2f" %(basis, r))
                 mf = pyscf.scf.RHF(mol).run()
 
                 f.write("%.2f %.12f\n" %(r, mf.e_tot))

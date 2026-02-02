@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import os
 
 # Figure font parameters
 plt.rcParams.update({
@@ -40,19 +41,24 @@ method_labels = {"rhf": "RHF", "mp2": "MP2", "ccsd": "CCSD", "ccsdt": "CCSD(T)",
 basis_labels = {"sto-3g": "STO-3G", "cc-pvdz": "cc-pVDZ", "aug-cc-pvdz": "aug-cc-pVDZ", "cc-pvtz": "cc-pVTZ", "aug-cc-pvtz": "aug-cc-pVTZ"}
 
 # Plot RHF energies for different basis sets
-fig = plt.figure()
-for basis in bases:
-    plot("rhf", basis, f"{basis_labels[basis]}")
-plt.legend()
-plt.xlabel("r/Angstrom")
-plt.ylabel("E/Hartree")
-plt.savefig("rhf.pdf")
-plt.close()
+if os.path.exists("rhf.dat"):
+    fig = plt.figure()
+    for basis in bases:
+        plot("rhf", basis, f"{basis_labels[basis]}")
+    plt.legend()
+    plt.xlabel("r/Angstrom")
+    plt.ylabel("E/Hartree")
+    plt.savefig("rhf.pdf")
+    plt.close()
 
+fig = plt.figure()
 for method in methods:
-    plot(method, "cc-pvdz", f"{method_labels[method]}")
-plt.legend()
-plt.xlabel("r/Angstrom")
-plt.ylabel("E/Hartree")
-plt.savefig("methods.pdf")
-plt.close()
+    if os.path.exists(f"{method}.dat"):
+        plot(method, "aug-cc-pvtz", f"{method_labels[method]}")
+    else:
+        raise FileNotFoundError(f"{method}.dat does not exist")
+    plt.legend()
+    plt.xlabel("r/\\AA{}ngstrom")
+    plt.ylabel("E/Hartree")
+    plt.savefig("post_hf.pdf")
+    plt.close()
