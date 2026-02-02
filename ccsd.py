@@ -3,8 +3,7 @@ import numpy as np
 
 if __name__ == "__main__":
 
-    #for basis in ("sto-3g", "cc-pvdz", "aug-cc-pvdz", "cc-pvtz", "aug-cc-pvtz"):
-    basis = "aug-cc-pvtz"
+    # Set basis variable: "sto-3g", "cc-pvdz", "aug-cc-pvdz", "cc-pvtz", "aug-cc-pvtz" 
     with open(f"ccsd_{basis}.dat", "w") as f:
         for r in np.arange(0.4, 4.1, 0.1):
             # Create molecule object
